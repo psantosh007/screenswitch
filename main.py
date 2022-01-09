@@ -13,8 +13,11 @@ Builder.load_string("""
                 text: "hello world"
         GridLayout:
             rows: 1
+            # 0.9 = 1-0.1(height).. whole screen is one unit.
             pos_hint: {"top": .9, "left": 1}
             size_hint: 1, .2
+            Button:
+                text: "hellow below)
    
 """)
 class MenuScreen(Screen):
