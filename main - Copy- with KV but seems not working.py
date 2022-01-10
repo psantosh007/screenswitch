@@ -13,7 +13,7 @@ Builder.load_string("""
 <MenuScreen>:
     id: twonumcal
     display: result
-    rows: 2
+    rows: 3
     padding: 10
     spacing: 10
     
@@ -41,7 +41,15 @@ Builder.load_string("""
             text: "-"
         CusButton:
             text: "x"
-               
+    ScrollView:
+        pos_hint: {"top": .8,"left": 1}
+        size_hint: 1, .5
+        do_scroll_x: False
+        Label:
+            id: viewout
+            size_hint: None, None
+            size: self.texture_size  
+            text: " scroll view " * 20        
    
 """)
 class MenuScreen(Screen):
