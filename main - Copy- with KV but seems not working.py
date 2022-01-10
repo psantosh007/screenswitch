@@ -18,6 +18,9 @@ Builder.load_string("""
     spacing: 10
     
     BoxLayout:
+        rows: 1
+        pos_hint: {"top": 1,"left": 1}
+        size_hint: 1, .1
         CusText:
             id: fno
         CusText:
@@ -29,6 +32,9 @@ Builder.load_string("""
             id: result
     
     BoxLayout:
+        rows: 1
+        pos_hint: {"top": .9,"left": 1}
+        size_hint: 1, .1
         CusButton:
             text: "+"
         CusButton:
