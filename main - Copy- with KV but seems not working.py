@@ -1,20 +1,48 @@
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-# BoxLayout: it's in the python part, so you need to import it
 from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen
+
 Builder.load_string("""
-<MyLayout>
-    orientation:"vertical"
-    Label: # it's in the kv part, so no need to import it
-        id:mylabel
-        text:"My App"
-    Button:
-        text: "Click me!"
-        on_press: print("santosh")
+<CusButton@Button>:
+    font_size: 40
+    
+<CusText@TextInput>:
+    font_size: 35
+    multiline: False
+    
+<MenuScreen>:
+    id: twonumcal
+    display: result
+    rows: 2
+    padding: 10
+    spacing: 10
+    
+    BoxLayout:
+        CusText:
+            id: fno
+        CusText:
+            id: sno
+        Label:
+            text: '='
+            font_size: 40
+        CusText:
+            id: result
+    
+    BoxLayout:
+        CusButton:
+            text: "+"
+        CusButton:
+            text: "-"
+        CusButton:
+            text: "x"
+               
+   
 """)
-class MyLayout(BoxLayout):
+class MenuScreen(Screen):
     pass
-class TutorialApp(App):
+class TestApp(App):
+
     def build(self):
-        return MyLayout()
-TutorialApp().run()
+        return MenuScreen()
+if __name__ == "__main__":
+    TestApp().run()
