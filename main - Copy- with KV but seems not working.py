@@ -17,6 +17,13 @@ Builder.load_string("""
     padding: 10
     spacing: 10
     
+    canvas.before:
+        Color:
+            rgba: (1, 1, 1, 1)
+        Rectangle:
+            source:'back.jpg'
+            size: root.width, root.height
+            pos: self.pos
     BoxLayout:
         rows: 1
         pos_hint: {"top": 1,"left": 1}
