@@ -1,69 +1,60 @@
 from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+# BoxLayout: it's in the python part, so you need to import it
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
+Builder.load_string("""
+<MyLayout>
+    orientation:"vertical"
+    Label: # it's in the kv part, so no need to import it
+        id:mylabel
+        text:"My App"
+    Button:
+        text: "Click me!"
+        on_press: print("santosh")
+""")
+class MyLayout(BoxLayout):
+    pass
+class TutorialApp(App):
+    def build(self):
+        return MyLayout()
+TutorialApp().run()
+
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
+from kivy.properties import ObjectProperty, StringProperty
+from kivy.lang import Builder
 
 Builder.load_string("""
-<CusButton@Button>:
-    font_size: 40
-    
-<CusText@TextInput>:
-    font_size: 35
-    multiline: False
-    
-<MenuScreen>:
-    id: twonumcal
-    display: result
-    rows: 3
-    padding: 10
-    spacing: 10
-    
-    canvas.before:
-        Color:
-            rgba: (1, 1, 1, 1)
-        Rectangle:
-            source:'back.jpg'
-            size: root.width, root.height
-            pos: self.pos
-    BoxLayout:
-        rows: 1
-        pos_hint: {"top": 1,"left": 1}
-        size_hint: 1, .1
-        CusText:
-            id: fno
-        CusText:
-            id: sno
-        Label:
-            text: '='
-            font_size: 40
-        CusText:
-            id: result
-    
-    BoxLayout:
-        rows: 1
-        pos_hint: {"top": .9,"left": 1}
-        size_hint: 1, .1
-        CusButton:
-            text: "+"
-        CusButton:
-            text: "-"
-        CusButton:
-            text: "x"
-    ScrollView:
-        pos_hint: {"top": .8,"left": 1}
-        size_hint: 1, .5
-        do_scroll_x: False
-        Label:
-            id: viewout
-            size_hint: None, None
-            size: self.texture_size  
-            text: " scroll view " * 20        
-   
-""")
-class MenuScreen(Screen):
-    pass
-class TestApp(App):
+<Controller>:
+    label_wid: my_custom_label
 
-    def build(self):
-        return MenuScreen()
-if __name__ == "__main__":
-    TestApp().run()
+    BoxLayout:
+        orientation: ’vertical’ 
+        padding: 20
+    Button:
+        text: ’My controller info is: ’ + root.info 
+        on_press: root.do_action()
+    Label:
+        id: my_custom_label
+        text: ’My label before button press
+
+""")
+
+
+class Controller(FloatLayout):
+    ’’’Create a controller that receives a custom widget from the kv lang file.
+    Add an action to be called from the kv lang file. ’’’
+    
+    label_wid = ObjectProperty()
+    info = StringProperty()
+
+    def do_action(self):
+        self.label_wid.text = ’My label after button press’
+        self.info = ’New info text’
+
+    class ControllerApp(App): 
+        def build(self):
+            return Controller(info=’Hello world’)
+    if __name__ == ’__main__’: 
+        ControllerApp().run()
