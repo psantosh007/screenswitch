@@ -1,0 +1,148 @@
+from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.widget import Widget
+from kivy.properties import (NumericProperty, ReferenceListProperty,
+                             ObjectProperty)
+from kivy.app import App
+from kivy.clock import Clock
+from kivy.vector import Vector
+
+Builder.load_string("""
+
+<Brick>:
+    size: 200, 200
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+<Ship>:
+    size: 50, 50
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<BrickGame>:
+    brick: falling_brick_one
+    ship: user_ship
+
+    Brick:
+        id: falling_brick_one
+        pos: (0, 800)
+    Ship:
+        id: user_ship
+        pos: (500, 0)
+
+#<TestPlay>
+#    playbut: playbut1
+#    playlabel: playlabel1
+#    Button:
+#        id: playbut1
+#        text: "testbutton"
+#        on_press: root.do_action()
+#    Label:
+#	id: playlabel1
+#        text: " before press "
+
+<MenuScreen>:
+    BoxLayout:
+        Label:
+            text: 'Welcome'
+        Button:
+            text: 'Start Game'
+            on_press: root.manager.current = 'gamescreen'
+        Button:
+            text: "Game0ver sc"
+	    on_press: root.manager.current = 'gameover' 
+        Button:
+            text: 'Exit'
+            on_press: exit(1)
+
+<GameScreen>:
+    game: game
+    BrickGame:
+        id: game
+
+        pos: self.pos
+
+<GameOverScreen>:
+    label:
+        text: "hello Game over"
+#    testplay: testplay
+        
+#    TestPlay:
+#        id: testplay
+#        pos: self.pos
+        
+    
+"""
+)
+
+
+class Brick(Widget):
+    velocity_x = NumericProperty(0)
+    velocity_y = NumericProperty(0)
+    velocity = ReferenceListProperty(velocity_x, velocity_y)
+    def move(self):
+        self.pos = Vector(*self.velocity) + self.pos
+
+
+class Ship(Widget):
+    pass
+
+
+class BrickGame(Widget):
+    brick = ObjectProperty(None)
+    ship = ObjectProperty(None)
+
+    def on_touch_move(self, touch):
+        self.ship.x = touch.x
+        self.ship.y = touch.y
+
+    def drop_brick(self):
+        self.brick.pos = (0, 800)
+        self.brick.velocity = (0, -2)
+
+    def update(self, dt):
+        self.brick.move()
+
+class TestPlay(Widget):
+    pass
+#    playbut = ObjectProperty(None)
+#    playlabel = ObjectProperty(None)  
+
+#    def do_action(self):
+#        self.playlabel.text: "Hello"
+
+
+
+class MenuScreen(Screen):
+    pass
+
+
+class GameScreen(Screen):
+
+    game = ObjectProperty()
+
+    def on_enter(self):
+        print ("on_enter fired")
+        self.game.drop_brick()
+        Clock.schedule_interval(self.game.update, 1.0 / 60.0)
+
+
+class GameOverScreen(Screen):
+    pass
+
+
+class TestApp(App):
+    def build(self):
+
+        sm = ScreenManager()
+        sm.add_widget(MenuScreen(name='menu'))
+        sm.add_widget(GameScreen(name='gamescreen'))
+        sm.add_widget(GameOverScreen(name='gameover'))
+
+        return sm
+
+if __name__ == '__main__':
+    TestApp().run()
