@@ -24,12 +24,19 @@ Builder.load_string("""
             pos: self.pos
 
     BoxLayout:
-        rows: 1
+        rows: 3
+        orientation: "vertical"
         pos_hint: {"top": 1,"left": 1}
-        size_hint: 1, .1
+        size_hint: 1, .3
         CusButton:
             text: "Next"
             on_press: root.manager.current = 'screen2'
+        CusText:
+            id: server_id
+            hint_text: "Write Server name"
+        Label:
+            text: "GeeksForGeeks \\n is the best platform for DSA content"
+        
                               
 <Screen2>:
     name: 'screen2'
@@ -44,7 +51,7 @@ Builder.load_string("""
         CusButton:
             text: "Previous"
             pos_hint: {"top": 0.1, "left": 0.5}
-            size_hint: .2, .2 
+            size_hint: .1, .1 
             on_press: root.manager.current = 'screen1'
 
 """)
