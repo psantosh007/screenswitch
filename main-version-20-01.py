@@ -74,7 +74,14 @@ class Screen1(Screen):
  # this is a test
     def mqtt_subscribe(self):
         
-        self.subscription_data.text= "sam_comb"
+        a = "ff"  
+        b="cc"  
+        c="ff"
+        sam=[a,b,c]
+
+        sam_comb= "\\n".join(sam)
+        
+        self.subscription_data.text= sam_comb
     
 #   pass
 #    label_wid = ObjectProperty()
