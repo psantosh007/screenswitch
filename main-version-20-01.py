@@ -15,6 +15,7 @@ Builder.load_string("""
     
 <Screen1>:
     name: 'screen1'
+    subscription_data: subscription_text
     canvas.before:
         Color:
             rgba: (1, 1, 1, 1)
@@ -25,7 +26,7 @@ Builder.load_string("""
 
     BoxLayout:
         rows: 3
-        subscription_data: subscription_text
+        
         orientation: "vertical"
         pos_hint: {"top": 1,"left": 1}
         size_hint: 1, .4
@@ -33,7 +34,9 @@ Builder.load_string("""
             text: "Next"
             on_press: root.manager.current = 'screen2'
         CusButton:
-            text: "MQTT"
+            text: "SUBSCRIBE"
+            on_press: root.mqtt_subscribe()
+            
         CusText:
             id: server_id
             hint_text: "Write Server name"
@@ -66,7 +69,14 @@ Builder.load_string("""
 
 #class twonumgrid(GridLayout):
 class Screen1(Screen):
-    pass
+    
+    subscription_data = ObjectProperty()
+ # this is a test
+    def mqtt_subscribe(self):
+        
+        self.subscription_data.text= "sam_comb"
+    
+#   pass
 #    label_wid = ObjectProperty()
 #    butt1 = ObjectProperty()
 #    info = StringProperty()
