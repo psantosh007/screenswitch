@@ -79,7 +79,7 @@ class Screen1(Screen):
         c="ff"
         sam=[a,b,c]
 
-        sam_comb= "\\n".join(sam)
+        sam_comb= "\n".join(sam)
         
         self.subscription_data.text= sam_comb
     
