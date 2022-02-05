@@ -18,7 +18,7 @@ Builder.load_string("""
     
 <Screen1>:
     name: 'screen1'
-    subscription_data: subscription_text
+    sub_data: sub_data
     canvas.before:
         Color:
             rgba: (1, 1, 1, 1)
@@ -46,7 +46,7 @@ Builder.load_string("""
             id: subscription_id
             hint_text: "Write Subscrption ID"
         Label:
-            id: subscription_text
+            id: sub_data
             text: "GeeksForGeeks \\n is the best platform for DSA content"
             
         
@@ -69,56 +69,32 @@ Builder.load_string("""
 """)
 
 class Screen1(Screen):
-    ######  
-    def on_connect(client, userdata, flags, rc):
-
-        global sam_comb
-        sam_comb= " Connection starting"
-      
-        if rc == 0:
-      
-#            print("Connected to broker")
-                             # create global string variable
-            global Connected                #Use global variable
-            Connected = True                #Signal connection 
-            sam_comb= " Connected to broker"
-      
-        else:
-            sam_comb= " Connection failed "
-      
- #           print("Connection failed")
-  
     
-    Connected = False   #global variable for the state of the connection
-                        # this is to initiate the code
-    
-###########
+    sub_data=ObjectProperty()
 
-    subscription_data = ObjectProperty()
- # this is a test
     def mqtt_subscribe(self):
         
-        a = "ff"  
-        b="cc"  
-        c="ff"
-        sam=[a,b,c]
-
-        sam_comb= "\n".join(sam)
         
-        self.subscription_data.text= sam_comb
+        
+#        a = "ff"  
+#        b="cc"  
+#        c="ff"
+#        sam=[a,b,c]
+
+ #       sam_comb= "\n".join(sam)
+        sam_comb="Nathan Paonam"
+        self.sub_data.text= sam_comb
 
         
-        broker_address= "test.mosquitto.org"  #Broker address
-        port = 1883                         #Broker port
-        user = "yourUser"                    #Connection username
-        password = "yourPassword"            #Connection password
-          
-        client = mqttClient.Client("Python")               #create new instance
-      
-        client.connect(broker_address, port=port)          #connect to broker
-          
- 
-    
+  #      broker_address= "test.mosquitto.org"  #Broker address
+  #      port = 1883                         #Broker port
+  #      user = "yourUser"                    #Connection username
+  #      password = "yourPassword"            #Connection password
+  #        
+  #      client = mqttClient.Client("Python")               #create new instance
+  #    
+  #      client.connect(broker_address, port=port)          #connect to broker
+         
         
 class Screen2(Screen):
     pass
