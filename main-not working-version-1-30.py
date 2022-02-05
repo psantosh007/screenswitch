@@ -1,12 +1,9 @@
-import paho.mqtt.client as mqttClient
-import time
 import kivy
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.gridlayout import GridLayout
 from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.screenmanager import ScreenManager, Screen
-
 
 Builder.load_string("""
 <CusButton@Button>:
@@ -18,7 +15,7 @@ Builder.load_string("""
     
 <Screen1>:
     name: 'screen1'
-    sub_data: sub_data
+    subscription_data: subscription_text
     canvas.before:
         Color:
             rgba: (1, 1, 1, 1)
@@ -26,6 +23,7 @@ Builder.load_string("""
             source:'back.jpg'
             size: root.width, root.height
             pos: self.pos
+
     BoxLayout:
         rows: 3
         
@@ -46,7 +44,7 @@ Builder.load_string("""
             id: subscription_id
             hint_text: "Write Subscrption ID"
         Label:
-            id: sub_data
+            id: subscription_text
             text: "GeeksForGeeks \\n is the best platform for DSA content"
             
         
@@ -66,35 +64,37 @@ Builder.load_string("""
             pos_hint: {"top": 0.1, "left": 0.5}
             size_hint: .1, .1 
             on_press: root.manager.current = 'screen1'
+
 """)
 
+#class twonumgrid(GridLayout):
 class Screen1(Screen):
     
-    sub_data=ObjectProperty()
-
+    subscription_data = ObjectProperty()
+ # this is a test
     def mqtt_subscribe(self):
         
-        
-        
-#        a = "ff"  
-#        b="cc"  
-#        c="ff"
-#        sam=[a,b,c]
+        a = "ff"  
+        b="cc"  
+        c="ff"
+        sam=[a,b,c]
 
- #       sam_comb= "\n".join(sam)
-        sam_comb="Nathan Paonam"
-        self.sub_data.text= sam_comb
-
+        sam_comb= "\n".join(sam)
         
-  #      broker_address= "test.mosquitto.org"  #Broker address
-  #      port = 1883                         #Broker port
-  #      user = "yourUser"                    #Connection username
-  #      password = "yourPassword"            #Connection password
-  #        
-  #      client = mqttClient.Client("Python")               #create new instance
-  #    
-  #      client.connect(broker_address, port=port)          #connect to broker
-         
+        self.subscription_data.text= sam_comb
+    
+#   pass
+#    label_wid = ObjectProperty()
+#    butt1 = ObjectProperty()
+#    info = StringProperty()
+    
+
+#    def connect_mqtt(self):
+#       self.label_wid.text= "Hello start conn"
+        
+    
+#    def disconnect_mqtt(self):    
+#        self.label_wid.text= "Disconnected"
         
 class Screen2(Screen):
     pass
